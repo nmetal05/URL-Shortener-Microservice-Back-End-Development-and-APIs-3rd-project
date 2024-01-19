@@ -1,0 +1,53 @@
+<!-- index.ejs -->
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>URL Shortener Microservice </title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://cdn.freecodecamp.org/universal/favicons/favicon-16x16.png"
+    />
+    <link href="/public/style.css" rel="stylesheet" type="text/css" />
+    </head>
+  <body>
+  <header>
+    <h1>URL Shortener Microservice</h1>
+  </header>
+    <main>
+        <form id="url_shortener_form" action="/api/shorturl" method="POST">
+          <fieldset>
+            <legend>URL Shortener</legend>
+            <label for="url_input">URL:</label>
+            <input id="url_input" type="text" name="url" placeholder="https://www.github.com/" />
+            <input type="submit" value="Submit to post the URL" />
+          </fieldset>
+        </form>
+      <section>
+        <h2>The 10 Latest Shortened URLs :</h2>
+        <h4>Submit an URL and press the refresh button to update the list.</h4>
+        <div class="table-container">
+        <table>
+        <thead><tr><th>Index</th><th>Original URL</th><th>Shortened URL</th></tr></thead>
+        <tbody>
+          <% urlDB.slice(0, 10).reverse().forEach((url,reversedIndex) => { %>
+          <% const index = urlDB.length - reversedIndex %>
+          <tr>
+          <td><%= index %></td>
+          <td><a href="<%=url.url%>" target="_blank"><%= url.url %></a></td>
+          <td><a href="<%= origin+'/api/shorturl/'+url.urlKey %>"><%= origin+'/api/shorturl/'+url.urlKey %></a></td>
+          <% }); %>
+          </tr>
+        </tbody>
+        </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>By <a href="https://github.com/nmetal05">Nizar Sahl</a></p>
+    </footer>
+ 
+    </body>
+</html>
